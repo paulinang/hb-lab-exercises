@@ -9,11 +9,17 @@ calculator program yourself in this file.
 from arithmetic import *
 
 def process_input(input_string):
-    tokens = input_string.split()
-    operator = tokens[0]
-    numlist = map(int, tokens[1:])
-    return operator, numlist
-
+    try:
+        tokens = input_string.split()
+        operator = tokens[0]
+        numlist = map(int, tokens[1:])
+        return operator, numlist
+    except ValueError: 
+        print "Please use numbers after operator."
+        return ['no_operator','no_numlist']
+    except IndexError:
+        print "Please type something in."
+        return ['no_operator','no_numlist']
 
 # make infinite loop
 while True:
