@@ -1,4 +1,5 @@
 from sys import argv
+from collections import Counter
 
 filename = argv[1]
 #filename = 'twain.txt'
@@ -8,6 +9,7 @@ with open(filename) as txt_file:
 
     #initialize empty dictionary
     word_count = {}
+    counter_wordlist = []
 
     #fill dictionary with word count 
     for line in txt_file:
@@ -21,7 +23,16 @@ with open(filename) as txt_file:
                 word = word[1:]
 
             word_count[word] = word_count.get(word, 0) + 1
+            
+            counter_wordlist.append(word)
+
+    other_word_count = Counter(counter_wordlist)
 
     #iterate through dictionary and print each pair
     for word, count in word_count.iteritems():
+        print word, count
+
+    print 'USING COUNTER'
+
+    for word, count in other_word_count.iteritems():
         print word, count
