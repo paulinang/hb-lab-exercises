@@ -20,6 +20,10 @@ def add_rating(restaurant_scores):
 
     # get new restaurant and rating from user
     new_name = raw_input('Enter restaurant name: ')
+
+    if new_name in restaurant_scores.keys():
+        print "This restaurant already has a rating. You will be changing it. "
+
     new_rating = int(raw_input('Enter the rating: '))
     restaurant_scores[new_name] = new_rating
 
@@ -47,7 +51,7 @@ ratings_dict = make_ratings_dict('scores.txt')
 
 while True:
     print
-    print "1) View ratings. 2) Add rating. 3) Edit random rating. 4) Quit. "
+    print "1) View ratings. 2) Add or change rating. 3) Edit random rating. 4) Quit. "
     user_choice = raw_input("Enter 1, 2, 3, or 4: ")
 
     if user_choice == "4":
