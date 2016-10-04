@@ -1,4 +1,4 @@
-import random
+import random, sys
 
 
 def open_and_read_file(file_path):
@@ -77,7 +77,20 @@ def make_text(chains):
     return text
 
 
-input_path = "green-eggs.txt"
+def make_text_n(chains, n=2):
+    """Takes dictionary of markov chains;
+    returns random text with specified n-grams."""
+
+    return might mighty text
+
+def make_chains_n(text_string, n=2):
+     """Takes input text as string; returns _dictionary_ of markov chains
+     with specified n-grams."""
+
+     
+
+
+input_path = sys.argv[1]
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
