@@ -110,7 +110,7 @@ def id_start_chains(chains):
     return starter_chains
 
 
-def make_text_n(chains):
+def make_text_n(chains, word_limit=100):
     """Takes dictionary of markov chains;
     returns random text with specified n-grams."""
 
@@ -122,22 +122,33 @@ def make_text_n(chains):
     text += (' '.join(current_key[:-1]) + " ")
 
     while True:
-        try:
-            # Adds last word of current key to text
-            text += (current_key[-1] + " ")
-            # Define list of options for next key given current key
-            current_key_list = chains[current_key]
-            # Turn slice of current key tuple into temp list
-            temp_list = list(current_key[1:])
-            # Appends random word to end of temp list
-            temp_list.append(random.choice(current_key_list))
-            # Redefines current key as tuple of temp list
-            current_key = tuple(temp_list)
 
-        except KeyError:
-            # Breaks while loop when current key does not exist in chains
+        sentence_enders = [".", "!", "?"]
+
+        # Adds last word of current key to text
+        text += (current_key[-1] + " ")
+
+        if current_key[-1][-1] in sentence_enders and len(text.split()) > word_limit:
+            # If this check happens after current_key is reassigned then use:
+            # text += current_key[-1]
             break
 
+        # Define list of options for next key given current key
+        current_key_list = chains[current_key]
+        # Turn slice of current key tuple into temp list
+        temp_list = list(current_key[1:])
+        # Appends random word to end of temp list
+        temp_list.append(random.choice(current_key_list))
+        # Redefines current key as tuple of temp list
+        current_key = tuple(temp_list)
+
+        # if current_key does not exist, choose a new starter chain
+        if not current_key in chains.keys():
+            text += current_key[-1] + ' '
+            current_key = random.choice(id_start_chains(chains))
+            text += (' '.join(current_key[:-1]) + " ")
+
+    print len(text.split())
     return text
 
 
