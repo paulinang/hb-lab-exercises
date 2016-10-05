@@ -29,7 +29,6 @@ def make_chains(text_string):
 
     chains = {}
 
-    # your code goes here
     words = text_string.split()
 
     for index in range(0, len(words) - 2):
@@ -77,20 +76,60 @@ def make_text(chains):
     return text
 
 
-def make_text_n(chains, n=2):
+def make_chains_n(text_string, n=2):
+    """Takes input text as string; returns _dictionary_ of markov chains
+    with specified n-grams."""
+
+    chains = {}
+    words = text_string.split()
+
+    for index in range(0, len(words) - n):
+        # Creates chains key for arbitrary amount of words
+        chains_key = tuple(words[index: index + n])
+
+        # Creates empty list if dictionary key did not exist
+        chains[chains_key] = chains.get(chains_key, [])
+        # Append word to value of dictionary key
+        chains[chains_key].append(words[index + n])
+
+    return chains
+
+
+
+def make_text_n(chains):
     """Takes dictionary of markov chains;
     returns random text with specified n-grams."""
 
-    return might mighty text
+    text = ""
 
-def make_chains_n(text_string, n=2):
-     """Takes input text as string; returns _dictionary_ of markov chains
-     with specified n-grams."""
+    current_key = random.choice(chains.keys()) # Selects first key
 
-     
+    # Adds first to second last words of current key to text
+    text += (' '.join(current_key[:-1]) + " ")
+
+    while True:
+        try:
+            # Adds last word of current key to text
+            text += (current_key[-1] + " ")
+            # Define list of options for next key given current key
+            current_key_list = chains[current_key]
+            # Turn slice of current key tuple into temp list
+            temp_list = list(current_key[1:])
+            # Appends random word to end of temp list
+            temp_list.append(random.choice(current_key_list))
+            # Redefines current key as tuple of temp list
+            current_key = tuple(temp_list)
+
+        except KeyError:
+            # Breaks while loop when current key does not exist in chains
+            break
+
+    return text
+
 
 
 input_path = sys.argv[1]
+n = int(sys.argv[2])
 
 # Open the file and turn it into one long string
 input_text = open_and_read_file(input_path)
@@ -103,4 +142,8 @@ chains = make_chains(input_text)
 # Produce random text
 random_text = make_text(chains)
 
+n_chains = make_chains_n(input_text, n)
+
+print make_text_n(n_chains)
+print
 print random_text
