@@ -95,6 +95,20 @@ def make_chains_n(text_string, n=2):
     return chains
 
 
+def id_start_chains(chains):
+    """Returns starter chains that have beginning capital letter"""
+
+    starter_chains = []
+
+    # creates list of chains with first word starting with capital letter
+    for chain in chains:
+        if chain[0][0].isupper():
+            starter_chains.append(chain)
+
+    # NOTE FOR LATER: try list comprehensions
+
+    return starter_chains
+
 
 def make_text_n(chains):
     """Takes dictionary of markov chains;
@@ -102,7 +116,7 @@ def make_text_n(chains):
 
     text = ""
 
-    current_key = random.choice(chains.keys()) # Selects first key
+    current_key = random.choice(id_start_chains(chains)) # Selects first key
 
     # Adds first to second last words of current key to text
     text += (' '.join(current_key[:-1]) + " ")
@@ -135,15 +149,15 @@ n = int(sys.argv[2])
 input_text = open_and_read_file(input_path)
 
 # Get a Markov chain
-chains = make_chains(input_text)
+# chains = make_chains(input_text)
 # for key, value in chains.iteritems():
 #     print key, value
 
 # Produce random text
-random_text = make_text(chains)
+# random_text = make_text(chains)
 
 n_chains = make_chains_n(input_text, n)
 
 print make_text_n(n_chains)
-print
-print random_text
+# print
+# print random_text
