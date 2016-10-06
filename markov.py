@@ -74,21 +74,25 @@ def tweet(chains):
 
     api.VerifyCredentials()
 
+    past_statuses = api.GetUserTimeline(screen_name="PB_HB_BFFS")
+    print "YOUR LAST TWEET FROM PREVIOUS SESSION: \n" + past_statuses[0].text +"\n"
+    # print([past_status.text for past_status in past_statuses])
+
     while True:
         tweet = make_text(chains)
         if len(tweet) > 140:
-            tweet = tweet[0:140]
+            tweet = tweet[:140]
 
         # tweet the tweet
         status = api.PostUpdate(tweet)
-        print status.text
-        print
+        print "YOU JUST TWEETED: \n" + status.text + "\n"
 
         user_input = raw_input("Press 'Enter' to tweet again! [q to quit, loser] > ")
         print
 
         if user_input == 'q':
-            break
+            return
+            # break
 
 
 # Get the filenames from the user through a command line prompt, ex:
