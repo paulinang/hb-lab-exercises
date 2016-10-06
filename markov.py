@@ -94,6 +94,21 @@ def tweet(chains):
             return
             # break
 
+def send_sms(chains='teletubbies'):
+
+    # ACCOUNT_SID = "ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" 
+    # AUTH_TOKEN = "your_auth_token" 
+ 
+    client = TwilioRestClient(os.environ(TWILIO_ACCOUNT_SID),
+        os.environ(TWILIO_AUTH_TOKEN))
+ 
+    client.messages.create(
+        to="+dummynum", 
+        from_="+15017250604", 
+        body="test sms for PB_HB_BFFS" 
+    )
+
+    return
 
 # Get the filenames from the user through a command line prompt, ex:
 # python markov.py green-eggs.txt shakespeare.txt
