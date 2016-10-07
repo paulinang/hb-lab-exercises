@@ -2,14 +2,18 @@
 from random import choice
 from datetime import datetime
 
+class TooManyMelonsError(ValueError):
+    pass
 
 class AbstractMelonOrder(object):
     """combines common methods between DomesticMelonOrder and International Orders"""
     def __init__(self, species, qty, order_type, tax, country_code=None):
         """Initializes general melon order attributes"""
 
+        if qty > 100:
+            raise TooManyMelonsError, 'No more than 100 melons!'
+
         self.species = species
-        self.qty = qty
         self.shipped = False
         self.country_code = country_code
         self.order_type = order_type
