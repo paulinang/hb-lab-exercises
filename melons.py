@@ -1,4 +1,5 @@
 """This file should have our order classes in it."""
+import choice from random
 
 class AbstractMelonOrder(object):
     """combines common methods between DomesticMelonOrder and International Orders"""
@@ -12,11 +13,17 @@ class AbstractMelonOrder(object):
         self.order_type = order_type
         self.tax = tax
 
+
+    def get_base_price(self):
+        """Gets random base price"""
+
+        return choice([5, 6, 7, 8, 9])
+
     
     def get_total(self):
         """Calculate price."""
 
-        base_price = 5
+        base_price = get_base_price()
         if self.species.lower() == "christmas":
             base_price = base_price * 1.5
         total = (1 + self.tax) * self.qty * base_price
