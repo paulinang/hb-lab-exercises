@@ -1,5 +1,6 @@
 """This file should have our order classes in it."""
-import choice from random
+from random import choice
+
 
 class AbstractMelonOrder(object):
     """combines common methods between DomesticMelonOrder and International Orders"""
@@ -80,7 +81,14 @@ class GovernmentMelonOrder(AbstractMelonOrder):
         self.passed_inspection = False
 
 
-    def mark_inspection(passed):
+    def mark_inspection(self, passed):
         """ Updates passed inspection attribute """
 
-        self.passed_inspection = passed
+        # user_input = raw_input("Did the inspection pass? [Enter True or False] > ")
+        if passed is True:
+            self.passed_inspection = passed
+
+        elif passed is not False:
+            print "Input was not True or False. Try mark_inspection() again."
+        else:
+            self.passed_inspection = False
