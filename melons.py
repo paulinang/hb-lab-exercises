@@ -1,5 +1,6 @@
 """This file should have our order classes in it."""
 from random import choice
+from datetime import datetime
 
 
 class AbstractMelonOrder(object):
@@ -13,12 +14,16 @@ class AbstractMelonOrder(object):
         self.country_code = country_code
         self.order_type = order_type
         self.tax = tax
-
+        self.order_day = datetime.today().weekday()
+        self.order_hour = datetime.today().hour
 
     def get_base_price(self):
         """Gets random base price"""
 
-        return choice([5, 6, 7, 8, 9])
+        base_price = choice([5, 6, 7, 8, 9])
+        if self.order_day in [0, 1, 2, 3, 4] and self.order_hour in [8, 9, 10]:
+            base_price = base_price + 4
+        return base_price
 
     
     def get_total(self):
@@ -76,7 +81,8 @@ class GovernmentMelonOrder(AbstractMelonOrder):
     def __init__(self, species, qty):
         """Initialize melon order attributes"""
 
-        super(GovernmentMelonOrder, self).__init__(species, qty, "domestic", 0)
+        super(GovernmentMelonOrder, self).__init__
+        (species, qty, "domestic", 0)
 
         self.passed_inspection = False
 
