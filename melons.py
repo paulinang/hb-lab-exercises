@@ -53,7 +53,7 @@ class InternationalMelonOrder(AbstractMelonOrder):
 
         if self.qty < 10:
             total = total + 3
-            
+
         return total
     
 
@@ -61,3 +61,19 @@ class InternationalMelonOrder(AbstractMelonOrder):
         """Return the country code."""
 
         return self.country_code
+
+class GovernmentMelonOrder(AbstractMelonOrder):
+    """A U.S. government melon order"""
+
+    def __init__(self, species, qty):
+        """Initialize melon order attributes"""
+
+        super(GovernmentMelonOrder, self).__init__(species, qty, "domestic", 0)
+
+        self.passed_inspection = False
+
+
+    def mark_inspection(passed):
+        """ Updates passed inspection attribute """
+
+        self.passed_inspection = passed
