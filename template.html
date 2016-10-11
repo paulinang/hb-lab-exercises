@@ -11,7 +11,7 @@
             font-family: sans-serif;
         }
 
-        .flag {
+/*        .flag {
             width: 500px;
             height: 100px;
         }
@@ -27,13 +27,50 @@
         #gold {
             background-color: #ffd700;
         }
+*/
+        /*div {
+            display: inline-block;
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            margin: 50px 0 50px 50px;
+        }*/
+
+        .outer {
+            width: 350px;
+            height: 200px;
+        }
+
+        #red {
+            background-color: red;
+        }
+
+        #blue {
+            background-color: blue;
+        }
+
+        .inner {
+            display: inline-block;
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            margin: 50px 0 50px 50px;
+        }
 
     </style>
 </head>
 <body>
     <!-- <h1>Hello World.</h1> -->
-    <div id="black" class="flag"></div>
+<!--     <div id="black" class="flag"></div>
     <div id="red" class="flag"></div>
-    <div id="gold" class="flag"></div>
+    <div id="gold" class="flag"></div> -->
+    <div id="red" class="outer">
+        <div class="inner"></div>
+        <div class="inner"></div>
+    </div>
+    <div id="blue" class="outer">
+        <div class="inner"></div>
+        <div class="inner"></div>
+    </div>
 </body>
 </html>
