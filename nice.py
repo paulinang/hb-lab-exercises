@@ -11,6 +11,7 @@ AWESOMENESS = [
     'awesome', 'terrific', 'fantastic', 'neato', 'fantabulous', 'wowza', 'oh-so-not-meh',
     'brilliant', 'ducky', 'coolio', 'incredible', 'wonderful', 'smashing', 'lovely']
 
+input_list = []
 
 @app.route('/')
 def start_here():
@@ -31,14 +32,14 @@ def say_hello():
       </head>
       <body>
         <h1>Hi There!</h1>
-        <form action="/greet">
+        <form action="/diss">
           <label>What's your name? <input type="text" name="person"></label>
           <br>
           <label>Select a compliment:
             <select name="compliment">
-              <option value="amazing">Amazing</option>
-              <option value="funny">Funny</option>
-              <option value="smart">Smart</option>
+              <option value="smelly">Amazing</option>
+              <option value="dumb">Funny</option>
+              <option value="lazy">Smart</option>
             </select>
           </label>
           <br><br>
@@ -57,6 +58,7 @@ def greet_person():
 
     compliment = request.args.get("compliment")
 
+  
     return """
     <!doctype html>
     <html>
@@ -68,6 +70,30 @@ def greet_person():
       </body>
     </html>
     """ % (player, compliment)
+
+
+@app.route('/diss')
+def diss_person():
+    """Insult user by name."""
+
+    player = request.args.get("person")
+
+    insult = request.args.get("compliment")
+
+    input_list.append([player,insult])
+
+
+    return  """
+    <!doctype html>
+    <html>
+      <head>
+        <title>An Insult</title>
+      </head>
+      <body>
+        Hi %s I think you're %s!
+      </body>
+    </html>
+    """ % (input_list[0][0], input_list[0][1])
 
 
 if __name__ == '__main__':
