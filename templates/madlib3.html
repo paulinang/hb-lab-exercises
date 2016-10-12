@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<head>
+  <title>Madlib</title>
+  <link rel="stylesheet" type="text/css" href="../static/madlibs.css">
+</head>
+<body>
+    <h1>Your Madlib:</h1>
+    <p> 
+       The <b>{{ color }}</b> cat named <b>{{ name }}</b> pounced on the  
+          {% for adj in adjectives %}
+             <b>{{adj}}</b> 
+          {% endfor %}
+       <b>{{ noun }}</b>. <b>{{ name }}</b> promptly tried to eat it. 
+
+    </p>
+</body>
+</html>

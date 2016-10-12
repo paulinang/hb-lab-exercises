@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+<head>
+  <title>Madlib</title>
+  <link rel="stylesheet" type="text/css" href="../static/madlibs.css">
+</head>
+<body>
+    <h1>Your Madlib:</h1>
+    <p> 
+        "I wanted a <b>{{ color }}</b> shoe!" said <b>{{ name }}</b>, who then threw a 
+        {% if adjectives %}
+            {% for adj in adjectives %}
+               <b>{{adj}}</b> 
+            {% endfor %}
+        {% endif %}
+        <b>{{ noun }}</b>.
+    </p>
+</body>
+</html>
