@@ -1,21 +1,16 @@
-<!doctype html>
-<html>
-<head>
-  <title>Madlib</title>
-  <link rel="stylesheet" type="text/css" href="../static/madlibs.css">
-</head>
-<body>
-    <h1>Your Madlib:</h1>
+{% extends 'base.html' %}
+{% block title %}Madlib 1{% endblock %}
+{% block content %}
     <p> 
         There once was a <b>{{ color }} {{ noun }}</b> sitting in the Hackbright Lab. When <b>{{ name }}</b> went to pick it up, it burst into flames
 
         {% if adjectives %}
             in a totally 
             {% for adj in adjectives %}
-               <b>{{adj}}</b> 
+                {% if loop.last %}and{% endif %}
+                <b>{{adj}}</b>{% if not loop.last %},{% endif %}
             {% endfor %}
             way
         {% endif %}.
     </p>
-</body>
-</html>
+{% endblock %}
