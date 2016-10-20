@@ -50,11 +50,19 @@
 
     var myImage = document.getElementById("coffee-image");
     var myRevenueMessage = document.getElementById("revenue");
+    var espresso = document.getElementById("espresso");
+    var latte = document.getElementById("latte");
+    var hotChocolate = document.getElementById("hot-chocolate");
+
 
     // var oldSrc = myImage.getAttribute("src");
     myImage.setAttribute("src", "static/coffee_beans.jpg");
+    var drinksOrdered = [];
 
-    function makeCoffee() {
+    function makeCoffee(drinkType) {
+        drinksOrdered.push(drinkType);
+        console.log(drinksOrdered);
+
         myImage.setAttribute("src", "static/coffee_machine.jpg");       
 
         setTimeout(function() {
@@ -67,7 +75,22 @@
 
     }
 
-    myImage.addEventListener('click', makeCoffee);
+    // DON"T DO THIS, IT RUNS makeCoffee ONCE AND NEVER AGAIN!!!!
+    // myImage.addEventListener('click', makeCoffee('brew'));
+
+
+    // This if fine, but WORDY!!!
+    // function makeBrew() {
+    //     return makeCoffee('brew');
+    // }
+
+    // myImage.addEventListener('click', makeBrew);
+
+    myImage.addEventListener('click', function () { return makeCoffee('brew'); });
+    espresso.addEventListener('click', function () { return makeCoffee('espresso'); });
+    latte.addEventListener('click', function () { return makeCoffee('latte'); });
+    hotChocolate.addEventListener('click', function () { return makeCoffee('hotChocolate'); });
+
 
     // use this JavaScript object in further study step
 
