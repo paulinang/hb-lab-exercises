@@ -23,7 +23,7 @@
             // window.alert();
 
             // prompt the user to guess the original word when given the scrambled word
-            var guess = prompt('Here is the scrambled word: ' + scrambled_word + '\nGuess the original word:');
+            var guess = prompt('Here is the scrambled word: ' + scrambled_word + '\nGuess the original word:').toLowerCase().trim();
 
             // If the user guesses wrong, tell them they were wrong and the right word.
             if (guess !== rand_word) {
