@@ -38,6 +38,31 @@ def user_list():
     return render_template("user_list.html", users=users)
 
 
+@app.route("/users/<user_id>")
+def user_details(user_id):
+    """Shows user details"""
+    user = User.query.get(user_id)
+    user_ratings = db.session.query(Movie.movie_id, Movie.title, Rating.score).join(Rating).join(User).filter(User.user_id == user_id).all()
+
+    return render_template("user_details.html", user=user, ratings=user_ratings)
+
+
+@app.route("/movies")
+def movie_list():
+    """Show list of movies."""
+
+    movies = Movie.query.all()
+    return render_template("movie_list.html", movies=movies)
+
+
+@app.route("/movies/<movie_id>")
+def movie_details(movie_id):
+    """Shows movies details"""
+    movie = Movie.query.get(movie_id)
+    user_ratings = db.session.query(Rating.user_id, Rating.score).join(Movie).filter(Movie.movie_id == movie_id).all()
+    return render_template("movie_details.html", movie=movie, ratings=user_ratings)
+
+
 @app.route("/register", methods=['GET'])
 def register_form():
     """Show register form."""
@@ -49,10 +74,79 @@ def register_form():
 def register_process():
     """Create user and redirect to homepage."""
 
+    # get arguments from register_form
+    email = request.form.get('email')
+    password = request.form.get('password')
+    age = int(request.form.get('age'))
+    zipcode = request.form.get('zipcode')
+
+    # check if user exists
+    if not db.session.query(User).filter(User.email == email).first():
+    # add user to db
+        user = User(email=email,
+                    password=password,
+                    age=age,
+                    zipcode=zipcode)
+        print user
+        db.session.add(user)
+        db.session.commit()
+        flash('Account successfully created.')
+    else: 
+        flash('Account with that email already exists.')
+
+    # redirect to homepage
+
     return redirect('/')
 
 
+@app.route("/login", methods=['GET'])
+def login_form():
+    """Show login form."""
 
+    return render_template("login_form.html")
+
+
+@app.route("/login", methods=['POST'])
+def login_process():
+    """Login user and redirect to homepage."""
+
+    # get arguments from register_form
+    email = request.form.get('email')
+    password = request.form.get('password')
+
+
+    user_query = db.session.query(User).filter(User.email==email).first()
+
+
+    if not email or not password:
+        flash('Nice try getting around our form, hacker.')
+
+    elif user_query and user_query.password == password:
+        session['user_id'] = user_query.user_id
+
+        print '\n\n\n',session,'\n\n\n'
+        flash('Log in successful')
+
+    elif user_query:
+        flash('YOU WRONG, FOOL')
+
+    else:
+        flash('YOU DON\'T EXIST, GO MAKE AN ACCOUNT')
+
+    return redirect('/')
+
+@app.route("/logout")
+def logout_process():
+    """Remove user_id from session"""
+
+    if 'user_id' in session:
+        user_id = session.pop('user_id')
+        print session
+
+        flash ('Logged Out')
+    else: 
+        flash ('Not logged in')
+    return redirect('/')
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
