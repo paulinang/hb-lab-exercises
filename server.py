@@ -42,16 +42,15 @@ def user_list():
 def user_details(user_id):
     """Shows user details"""
     user = User.query.get(user_id)
-    user_ratings = db.session.query(Movie.movie_id, Movie.title, Rating.score).join(Rating).join(User).filter(User.user_id == user_id).all()
 
-    return render_template("user_details.html", user=user, ratings=user_ratings)
+    return render_template("user_details.html", user=user)
 
 
 @app.route("/movies")
 def movie_list():
     """Show list of movies."""
 
-    movies = Movie.query.all()
+    movies = Movie.query.order_by(Movie.released_at).all()
     return render_template("movie_list.html", movies=movies)
 
 
@@ -59,8 +58,8 @@ def movie_list():
 def movie_details(movie_id):
     """Shows movies details"""
     movie = Movie.query.get(movie_id)
-    user_ratings = db.session.query(Rating.user_id, Rating.score).join(Movie).filter(Movie.movie_id == movie_id).all()
-    return render_template("movie_details.html", movie=movie, ratings=user_ratings)
+
+    return render_template("movie_details.html", movie=movie)
 
 
 @app.route("/register", methods=['GET'])
@@ -126,6 +125,8 @@ def login_process():
 
         print '\n\n\n',session,'\n\n\n'
         flash('Log in successful')
+
+        return redirect("/users/%s" % user_query.user_id)
 
     elif user_query:
         flash('YOU WRONG, FOOL')
