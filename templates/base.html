@@ -6,7 +6,10 @@
 </head>
 
 <body>
-  Ratings
+  <a href='/'>Ratings</a><br><br>
+  {% if 'user_id' in session %}
+    <a href='/users/{{ session["user_id"] }}'> Your Ratings</a>
+  {% endif %}
   <hr>
 
     {% with messages = get_flashed_messages() %}

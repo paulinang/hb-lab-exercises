@@ -8,6 +8,8 @@
     {% if 'user_id' in session %}
       <form action='/rate_movie' method='POST'>
           <label for='rating'>Rating: </label><br>
+          <!-- pass in movie id into rate movie form so you can update database -->
+          <input type='hidden' name='movie-id' value='{{ movie.movie_id }}'><br>
           <input type='number' min='1' max='5' name='rating' required><br>
           <input type='submit' value='Rate Movie'>
       </form>

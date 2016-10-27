@@ -50,7 +50,8 @@ def user_details(user_id):
 def movie_list():
     """Show list of movies."""
 
-    movies = Movie.query.order_by(Movie.released_at).all()
+    # all movies except the one with id 267 (has unknown title and release date)
+    movies = Movie.query.filter(Movie.movie_id != 267).order_by(Movie.title).all()
     return render_template("movie_list.html", movies=movies)
 
 
@@ -148,6 +149,38 @@ def logout_process():
     else: 
         flash ('Not logged in')
     return redirect('/')
+
+
+@app.route("/rate_movie", methods=['POST'])
+def rate_movie():
+    """Rates movie"""
+
+    # movie_id is hidden input in form, user_id is from session
+    # you can only access this route if you are logged in/ user_id exists in session
+    movie_id = request.form.get('movie-id')
+    score = request.form.get('rating')
+    user_id = session['user_id']
+
+    # get the rating record with that movie and user (return None if there's none)
+    rating_query = db.session.query(Rating).filter(Rating.movie_id == movie_id,
+                                                   Rating.user_id == user_id).first()
+
+    # if rating_query exists
+    if rating_query:
+        # update score
+        old_score = rating_query.score
+        rating_query.score = score
+        flash('Existing rating of %s updated to %s successfully.' % (old_score, score))
+    else:
+        # instantiate new rating and add to db
+        new_rating = Rating(movie_id=movie_id, user_id=user_id, score=score)
+        db.session.add(new_rating)
+        flash('New rating of %s added successfully.' % score)
+
+    db.session.commit()
+
+    # redirect to details of movie you updated
+    return redirect('/movies/%s' % movie_id)
 
 if __name__ == "__main__":
     # We have to set debug=True here, since it has to be True at the
