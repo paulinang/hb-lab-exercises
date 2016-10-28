@@ -1,6 +1,7 @@
 """Models and database functions for Ratings project."""
 
 from flask_sqlalchemy import SQLAlchemy
+from correlation import pearson
 
 # This is the connection to the PostgreSQL database; we're getting this through
 # the Flask-SQLAlchemy helper library. On this, we can find the `session`
@@ -28,6 +29,56 @@ class User(db.Model):
 
         return "<User user_id=%s email=%s>" % (self.user_id,
                                                self.email)
+
+    def similarity(self, other_user):
+        """Compare a user's rating to another user's """
+        u_ratings = self.ratings
+
+        u_dict = {}
+        for r in u_ratings:
+            u_dict[r.movie_id] = r
+
+        # other_ratings = Rating.query.filter_by(movie_id = m.movie_id).all()
+        # other_users = [r.user for r in other_ratings]
+
+        matched_scores = []
+        for o_r in other_user.ratings:
+            u_rating = u_dict.get(o_r.movie_id)
+
+            if u_rating:
+                matched_scores.append((u_rating.score, o_r.score))
+
+        if matched_scores:
+            return pearson(matched_scores)
+
+        return 0
+
+
+    def predict_rating(self, movie):
+        """Predict user's rating of a movie."""
+
+        other_ratings = movie.ratings
+
+        similarities = [
+            (self.similarity(r.user), r)
+            for r in other_ratings
+        ]
+
+        similarities.sort(reverse=True)
+
+        positive = sum([r.score * sim for sim, r in similarities
+                        if sim > 0])
+
+        negative = sum([abs(r.score - 6) * abs(sim) for sim, r in similarities
+                        if sim < 0])
+
+        if not similarities:
+            return None
+
+        numerator = positive + negative
+        denominator = sum([abs(sim) for sim, r in similarities])
+
+        return numerator/denominator
 
 
 

@@ -6,6 +6,11 @@
       <li><a href= "{{movie.imdb_url}}">IMDB</a></li>
     </ul>
     {% if 'user_id' in session %}
+      {% if prediction %}
+        <p>We predict you will like this movie thiiiiiiiiiis much: Rating of {{ prediction }}</p>
+      {% else %}
+        <p>You have already rated this movie {{ user_rating.score }}
+      {% endif %}
       <form action='/rate_movie' method='POST'>
           <label for='rating'>Rating: </label><br>
           <!-- pass in movie id into rate movie form so you can update database -->
@@ -15,6 +20,8 @@
       </form>
     {% endif %}
     <h4>User ratings</h4>
+    <p>Average rating: {{ average }} </p>
+
     <ul>
       {% for r in movie.ratings %}
           <li>
