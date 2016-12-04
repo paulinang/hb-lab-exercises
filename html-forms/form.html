@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Ubermelon Order Form</title>
+    </head>
+    <body>
+        <!-- <header>Ubermelon Order Form</header> -->
+        <div><img src='http://orig04.deviantart.net/2434/f/2013/034/a/d/pyro6_by_agentdax-d5ts2ot.png' style='height:20%; width:20%'></div>
+        <h1>Order!</h1>
+        <h2>Prices</h2>
+        <table>
+            <tr>
+                <th>Melon Name</th>
+                <th>Price per lb</th>
+            </tr>
+            <tr>
+                <td><a href='http://uploads.funthingstodowhenbored.com/funnys/Fusion-Of-Cat-And-Watermelon-Funny-Memes/headlineImg.jpg'>Watermelon</a></td>
+                <td>$1.59</td>
+            </tr>
+            <tr>
+                <td>Honeydew</td>
+                <td>$0.99</td>
+            </tr>
+            <tr>
+                <td><a href='http://s2.quickmeme.com/img/ef/ef26d3561754ded6ceda5fb4e35d998024d67a0a2bbdb037272ef6a739c3bdbc.jpg'>Cantaloupe</a></td>
+                <td>$1.29</td>
+            </tr>
+            <tr>
+                <td>Crenshaw</td>
+                <td>$2.19</td>
+            </tr>
+            <tr>
+                <td>Canary</td>
+                <td>$11.99</td>
+            </tr>
+        </table>
+        <p>Place your orders here!  You know you want to. </p>
+        <form action='https://ubermelon-order-form.herokuapp.com/process' method='GET'>
+            <div>First Name: <input type='text' name='firstname' value='Terrible' required></div>
+            <div>Last Name: <input type='text' name='lastname' value='Ivan, the' required></div>
+            <div>Melon Type:
+                <select name='melontype'>
+                    <option value='watermelon'>Watermelon</option>
+                    <option value='honeydew'>Honeydew</option>
+                    <option value='canteloupe'>Cantaloupe</option>
+                    <option value='crenshaw'>Crenshaw</option>
+                    <option value='canary'>Canary</option>
+                </select>
+            </div>
+            <div>Quantity: <input type='text' name='quantity' required></div>
+            <div>Delivery Time: 
+                <input type="radio" name="time" value="am">12:00am-12:00pm
+                <input type="radio" name="time" value="pm" required>12:00pm-12:00am
+                <input type="radio" name="time" value="wat">Time is an illusion.
+            </div>
+            <div>Returning Customer:
+                <input type="radio" name="returning" value="yes" required>Yes
+                <input type="radio" name="returning" value="no">No
+            </div>
+            <div>Statistics:
+                <input type="checkbox" name="stats" value="dog">Dog
+                <input type="checkbox" name="stats" value="cat">Cat
+                <input type="checkbox" name="stats" value="hedgehog">Hedgehog
+                <input type="checkbox" name="stats" value="balloonicorn">
+                <a href="http://25.media.tumblr.com/tumblr_m6q1g7PYla1rtf3ubo1_500.png">Balloonicorn</a>
+                <input type="checkbox" name="stats" value="yak">Yak
+            </div>
+            <p>Holla at us if you have any special requests for your melons:</p>
+            <div>
+                <textarea name="special-requests"></textarea>
+            </div>
+            <div><input type='submit' value='Send me my Melons, Dawgs'></div>
+        </form>
+        <footer><i>*Quantities given are by the flat.</i></footer>
+    </body>
+</html>
