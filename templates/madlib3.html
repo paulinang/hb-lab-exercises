@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}Madlib 3{% endblock %}
+{% block content %}
+    <p> 
+       The <b>{{ color }}</b> cat named <b>{{ name }}</b> pounced on the  
+          {% for adj in adjectives %}
+            {% if loop.last %}and{% endif %}
+            <b>{{adj}}</b>{% if not loop.last %},{% endif %} 
+          {% endfor %}
+       <b>{{ noun }}</b>. <b>{{ name }}</b> promptly tried to eat it. 
+
+    </p>
+{% endblock %}<!doctype html><!doctype html>

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Madlib 2{% endblock %}
+{% block content %}
+    <p> 
+        "I wanted a <b>{{ color }}</b> shoe!" said <b>{{ name }}</b>, who then threw a 
+            {% for adj in adjectives %}
+              {% if loop.last %}and{% endif %}
+              <b>{{adj}}</b>{% if not loop.last %},{% endif %}
+            {% endfor %}
+        <b>{{ noun }}</b>.
+    </p>
+{% endblock %}
