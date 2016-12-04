@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Ratings</h1>
+
+<h2>Register User</h2>
+<form action='/register' method='POST'>
+    <label for='email'>Email: </label><br>
+    <input type='text' name='email' required><br>
+    <label for='password'>Password: </label><br>
+    <input type='text' name='password' required><br>
+    <label for='age'>Age: </label><br>
+    <input type='number' name='age' required><br>
+    <label for='zipcode'>Zipcode: </label><br>
+    <input type='number' name='zipcode' required><br>
+    <input type='submit' value='Create Account'>
+</form>
+
+{% endblock %}

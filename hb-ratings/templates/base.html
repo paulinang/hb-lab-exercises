@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+<head>
+  <title>Ratings</title>
+
+</head>
+
+<body>
+  <a href='/'>Ratings</a><br><br>
+  {% if 'user_id' in session %}
+    <a href='/users/{{ session["user_id"] }}'> Your Ratings</a>
+  {% endif %}
+  <hr>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for message in messages %}
+          <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+
+
+  {% block content %} put your content here {% endblock %}
+
+</body>
+</html>

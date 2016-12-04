@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Ratings</h1>
+
+<h2>Login to your Account</h2>
+<form action='/login' method='POST'>
+    <label for='email'>Email: </label><br>
+    <input type='text' name='email' required><br>
+    <label for='password'>Password: </label><br>
+    <input type='text' name='password' required><br>
+    <input type='submit' value='Login'>
+</form>
+
+{% endblock %}
